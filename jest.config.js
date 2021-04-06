@@ -4,6 +4,9 @@
  */
 
 module.exports = {
+  // https://github.com/shelfio/jest-mongodb#6-jest-watch-mode-gotcha
+  watchPathIgnorePatterns: ['globalConfig'],
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
