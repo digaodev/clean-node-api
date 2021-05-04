@@ -26,6 +26,7 @@ module.exports = {
   // collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   collectCoverageFrom: [
     '!<rootDir>/src/**/*-protocols.ts',
+    '!<rootDir>/src/main/**',
     '!**/protocols/**'
   ],
 
