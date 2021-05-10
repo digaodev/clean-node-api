@@ -5,9 +5,9 @@ import {
   AccountModel,
   AddAccountModel
 } from './signup-protocols'
-import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
+import { InvalidParamError, MissingParamError } from '../../errors'
 import { HttpRequest } from '../../protocols'
-import { badRequest, ok, serverError } from '../../helpers/http-helper'
+import { badRequest, ok } from '../../helpers/http-helper'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -166,7 +166,9 @@ describe('SignUp Controller', () => {
 
     const httpResponse = await sut.handle(httpRequest)
 
-    expect(httpResponse).toEqual(serverError(new ServerError(null)))
+    expect(httpResponse.statusCode).toEqual(500)
+    expect(httpResponse.body.name).toEqual('ServerError')
+    expect(httpResponse.body.message).toEqual('Oops! An unexpected error occurred. Try again later.')
   })
 
   test('should return 400 if password confirmation is invalid', async () => {
@@ -208,7 +210,9 @@ describe('SignUp Controller', () => {
 
     const httpResponse = await sut.handle(httpRequest)
 
-    expect(httpResponse).toEqual(serverError(new ServerError(null)))
+    expect(httpResponse.statusCode).toEqual(500)
+    expect(httpResponse.body.name).toEqual('ServerError')
+    expect(httpResponse.body.message).toEqual('Oops! An unexpected error occurred. Try again later.')
   })
 
   test('should return 200 if valid data is provided', async () => {
